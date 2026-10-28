@@ -149,7 +149,24 @@ def main():
             missing_pct = df["pm25"].isna().mean() * 100 if "pm25" in df.columns else 0
             st.metric("PM2.5 Missing Hours", f"{missing_pct:.1f}%")
     else:
-        st.error("⚠️ Processed dataset not found. Run `python -m src.data.prepare_data` first.")
+        st.error("⚠️ Processed dataset not found (`data/processed/hourly_processed.csv`).")
+        st.info("You can generate it by clicking below or by running `python -m src.data.prepare_data` in your terminal.")
+        raw_path = PROJECT_ROOT / cfg["data"]["raw_dir"] / cfg["data"]["raw_filename"]
+        btn_label = "⚡ Prepare Dataset from Local Raw Data" if raw_path.exists() else "⬇️ Download & Prepare Dataset"
+        if st.button(btn_label):
+            with st.spinner("Processing dataset... please wait..."):
+                try:
+                    if not raw_path.exists():
+                        from src.data.download_data import download_csv
+                        download_csv(cfg["data"]["source_url"], raw_path)
+                    from src.data.prepare_data import load_and_clean, save_processed
+                    out_path = PROJECT_ROOT / cfg["data"]["processed_dir"] / cfg["data"]["processed_filename"]
+                    hourly_df = load_and_clean(raw_path)
+                    save_processed(hourly_df, out_path)
+                    st.success("Dataset prepared successfully! Reloading...")
+                    st.rerun()
+                except Exception as ex:
+                    st.error(f"Failed to prepare dataset: {ex}")
         st.stop()
 
     st.markdown("---")

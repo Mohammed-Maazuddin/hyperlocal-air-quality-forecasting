@@ -22,9 +22,8 @@ ENV/
 *.nbconvert.ipynb
 
 # ── Data files ────────────────────────────────────────────────────────────────
-# Raw data is large; keep processed data out of git too (regenerate via pipeline)
+# Raw data is large; keep raw data out of git
 data/raw/*.csv
-data/processed/*.csv
 
 # ── Testing & Coverage ────────────────────────────────────────────────────────
 .pytest_cache/
