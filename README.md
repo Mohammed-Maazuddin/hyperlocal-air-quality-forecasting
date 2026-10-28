@@ -62,7 +62,7 @@ to build and evaluate a time-series forecasting model.
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/hyperlocal-air-quality-forecasting.git
+git clone https://github.com/Mohammed-Maazuddin/hyperlocal-air-quality-forecasting.git
 cd hyperlocal-air-quality-forecasting
 pip install -r requirements.txt
 ```
