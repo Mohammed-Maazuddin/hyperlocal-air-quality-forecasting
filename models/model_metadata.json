@@ -1,0 +1,110 @@
+{
+  "model_type": "Linear Regression",
+  "feature_cols": [
+    "pm25_lag0",
+    "pm25_lag1h",
+    "pm25_lag3h",
+    "pm25_lag6h",
+    "pm25_lag12h",
+    "pm25_lag24h",
+    "pm25_lag48h",
+    "pm25_lag168h",
+    "pm25_roll6h_mean",
+    "pm25_roll24h_mean",
+    "pm25_roll24h_std",
+    "target_hour",
+    "target_dow",
+    "target_month",
+    "hour_sin",
+    "hour_cos",
+    "pm10",
+    "no",
+    "no2",
+    "nox",
+    "nh3",
+    "so2",
+    "co",
+    "ozone",
+    "temp_c",
+    "rh",
+    "ws",
+    "wd",
+    "rf",
+    "sr",
+    "bp"
+  ],
+  "horizon_hours": 24,
+  "train_period": {
+    "start": "2024-01-01 00:00:00+00:00",
+    "end": "2025-06-25 16:00:00+00:00",
+    "n_samples": 9474
+  },
+  "test_period": {
+    "start": "2025-06-25 17:00:00+00:00",
+    "end": "2025-12-30 23:00:00+00:00",
+    "n_samples": 3158
+  },
+  "test_metrics": {
+    "MAE": 7.021787419257558,
+    "RMSE": 10.569245620828672,
+    "R2": 0.1670373693830811,
+    "WAPE_%": 17.821514270650308,
+    "n_samples": "3158"
+  },
+  "all_metrics": [
+    {
+      "model": "Persistence",
+      "MAE": 7.329790334712297,
+      "RMSE": 11.570189176683872,
+      "R2": 0.009254596058146825,
+      "WAPE_%": 18.507269342703637,
+      "n_samples": 3158
+    },
+    {
+      "model": "Seasonal Naive",
+      "MAE": 7.982723958333334,
+      "RMSE": 12.146276157012974,
+      "R2": -0.08406199029656958,
+      "WAPE_%": 20.24098021206647,
+      "n_samples": 3158
+    },
+    {
+      "model": "Linear Regression",
+      "MAE": 7.021787419257558,
+      "RMSE": 10.569245620828672,
+      "R2": 0.1670373693830811,
+      "WAPE_%": 17.821514270650308,
+      "n_samples": 3158
+    },
+    {
+      "model": "Random Forest",
+      "MAE": 7.568615963660852,
+      "RMSE": 11.061544792060973,
+      "R2": 0.08763398188776028,
+      "WAPE_%": 19.209382077778063,
+      "n_samples": 3158
+    },
+    {
+      "model": "HistGradientBoosting",
+      "MAE": 7.7029688139905055,
+      "RMSE": 11.379174588232539,
+      "R2": 0.03448492683808069,
+      "WAPE_%": 19.550373779247945,
+      "n_samples": 3158
+    }
+  ],
+  "lag_hours": [
+    1,
+    3,
+    6,
+    12,
+    24,
+    48,
+    168
+  ],
+  "rolling_windows": [
+    6,
+    24
+  ],
+  "random_seed": 42
+}

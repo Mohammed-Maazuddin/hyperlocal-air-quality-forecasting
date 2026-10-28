@@ -1,0 +1,53 @@
+# ============================================================
+# configs/config.yaml
+# Central configuration for the Hyperlocal Air Quality
+# Forecasting project.
+# ============================================================
+
+project:
+  name: "Hyperlocal Air Quality Forecasting - Hyderabad"
+  station: "IITH Kandi, Hyderabad - TSPCB"
+  station_id: "site_5597"
+  city: "Hyderabad"
+  state: "Telangana"
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  raw_filename: "hyd-iith-kandi-tspcb-2024-25.csv"
+  processed_filename: "hourly_processed.csv"
+  source_url: "https://data.opencity.in/dataset/7a729fcc-f39e-498d-a577-1393a6e873b7/resource/054a52fa-2552-438e-baab-8d9b22fed81b/download/hyd-iith-kandi-tspcb-2024-25.csv"
+  source_attribution: "OpenCity India – TSPCB Hyderabad IITH Kandi Station"
+  source_license: "Please verify license at https://data.opencity.in"
+  timestamp_col: "Timestamp"
+  timezone: "UTC"   # Raw timestamps are UTC (offset +0000); we keep UTC throughout.
+  resample_freq: "1h"
+
+target:
+  column: "PM2.5 (µg/m³)"
+  horizon_hours: 24   # Forecast exactly 24 hours ahead
+
+features:
+  lag_hours: [1, 3, 6, 12, 24, 48, 168]
+  rolling_windows: [6, 24]
+  calendar_cols:
+    - "target_hour"
+    - "target_dow"
+    - "target_month"
+    - "hour_sin"
+    - "hour_cos"
+
+model:
+  random_seed: 42
+  train_fraction: 0.75
+  artifacts_dir: "models"
+  artifact_filename: "best_model.joblib"
+  metadata_filename: "model_metadata.json"
+
+reports:
+  metrics_csv: "reports/model_metrics.csv"
+  test_predictions_csv: "reports/test_predictions.csv"
+  figures:
+    eda: "reports/figures/eda"
+    evaluation: "reports/figures/evaluation"
+    interpretation: "reports/figures/interpretation"
